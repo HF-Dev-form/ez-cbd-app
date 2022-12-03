@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Accueil {% endblock %}
+
+{% block body %}
+
+{% block carousel %} {% endblock %}
+    
+        <!-- Three columns of text below the carousel -->
+        {# <div class="container text-center">
+            <h3>Nos best seller</h3>
+            <p>Découvrez nos meilleures ventes</p> #}
+        
+            {# <div class="row justify-content-center align-content-center align-items-center col-8 col-sm-12 mx-auto">
+            {% for product in products  %}
+                <div class="col-md-3 flex-fill">
+                    <div class="text-center p-1">
+                        <a href=" {{ path('app_product_show', {'slug' : product.slug, 'id' : product.id}) }}">
+                            <img src="{{ asset('uploads/') }}{{product.illustration}}" class="img-fluid" style="max-height: 150px; max-width:300px; object-fit: contain;" alt=""> 
+                        </a>
+                            <h5 class="title text-center p-1">
+                                <a href=" {{ path('app_product_show', {'slug' : product.slug, 'id' : product.id}) }}">{{product.name}} </a> 
+                            </h5> 
+                                <span class="text-muted font-italic">{{product.category.name}}</span>
+                            <p class="text-center">
+                                <small>{{product.subtitle}}</small>
+                                <hr>
+                            <h6>{{ (product.price / 100)|number_format(2, ',', '.')}}€</h6>
+                            </p>
+                        </div>
+                        <div class="text-center my-2">
+                            <a href="{{ path('app_product_show', {'slug' : product.slug, 'id' : product.id}) }}" class="btn btn-sm btn-primary ">Voir détails</a>
+                        </div>
+                    </div>
+            {% endfor %}
+	        </div> #}
+    <div class="container text-center mx-auto">
+        <h3>Nos Best-seller</h3>
+        <p>Découvrez les articles les plus vendus.</p>
+        <div class="row justify-content-center align-content-center">
+            {% for product in products %}
+                <div class="col-md-3 h-25 hoverable">
+                    {% include 'incs/_single_product.html.twig' %}
+                </div>
+            {% endfor %}
+        </div><!-- /.row -->
+    </div>
+
+
+        <!-- START THE FEATURETTES -->
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">Huiles et e-liquides. <span class="text-muted">CBD jusqu'à 35%.</span></h2>
+                <p class="lead">Pourquoi ? Parce que les catalogues actuels ont un peu de tout en stock. Avec une variabilité accrue sur les paramètres tels que : le dosage de cannabidiol (CBD), le taux de THC, la saveur ou le goût (une note de citron ou d’autres fruits), les effets et les prix.
+                Chez nous, la gamme dédiée à la cigarette électronique est vaste et dispose des meilleurs prix du web.</p>
+            </div>
+            <div class="col-md-5 shadow-sm" style="background: url('pics/main1.jpg')">
+               
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading">FLEURS DE CBD AMNESIA <span class="text-muted">GreenHouse CBD 12,8%</span></h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            </div>
+            <div class="col-md-5 order-md-1 shadow-sm" style="background: url('pics/bancbd.jpg'); background-size: cover;">
+              
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading"> Baume Miracle Ho Karan <span class="text-muted">CBD 35%</span></h2>
+                <p class="lead">Redonnez un coup de boost à votre peau irritée, agressée par le froid, les frottements ou l’eczéma, avec le Baume Miracle Ho Karan !</p>
+            </div>
+            <div class="col-md-5 shadow-sm" style="background: url('pics/main2.jpg'); background-size: cover;">
+             
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <!-- /END THE FEATURETTES -->
+
+
+{% endblock %}

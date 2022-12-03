@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CBD EZ - Commande payé avec succès{% endblock %}
+
+{% block body %}
+
+<div class="container">
+   <div class="row">
+      <div class="col-md-6 mx-auto">
+         <div class="payment">
+            <div class="payment_header bg-success">
+               <div class="check"><i class="fa fa-check" aria-hidden="true"></i></div>
+            </div>
+            <div class="content">
+               <h1>Confirmation de paiement</h1>
+               <p>
+                    Félicitations, <strong>{{order.user.firstname}}</strong> <strong>{{order.user.lastname}}</strong>
+                    <br>
+                    Votre commande <strong>{{order.reference}}</strong> a bien été validé, vous receverez une email de confirmation à l'adresse <strong>{{order.user.email}}</strong>      
+               </p>
+               <hr>
+                <p>
+                    Votre commande vous sera délivrée par <strong>{{order.carrierName}}</strong>,
+                    <br>
+                    à l'adresse suivante {{order.delivery|raw}}
+                </p>
+               <a class="btn btn-dark m-2" href="{{ path('app_profile_order') }}">Suivre ma commande</a>
+            </div>   
+         </div>
+      </div>
+   </div>
+</div>
+
+{% block stylesheets %} 
+    <link href="{{ asset("assets/css/success-payment.css") }}" rel="stylesheet">
+{% endblock %}
+
+{% endblock %}

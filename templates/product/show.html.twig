@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+{% block title %}Ez-CBD - Détails du produit {{ product.name }} {% endblock %}
+
+{% block body %}
+
+<div class="container mt-4">
+<h1 class="text-center h3 mt-5">Détails du produit {{ product.name }}</h1>
+    <div class="container my-3 bg-light p-4 shadow-sm">
+        <div class="row justify-content-center">
+            <div class="col-md-7">
+                <img src="/uploads/{{ product.illustration }}" alt="{{ product.name }}" class="img-fluid" style="width: 70%; height: 70%;">
+            </div>
+            <div class="col-md-5 my-auto">
+                <h3>{{ product.name }}</h3>
+                <p class="text-card">{{ product.subtitle }}</p>
+                {{ (product.price / 100)| number_format(2, ',', '.')}}€
+                <hr>
+                <p class="text-card">
+                    {{ product.description }}
+                </p>
+                <a href="{{ path('app_cart_add', {"id" : product.id}) }}" class="btn btn-success rounded">Ajouter au panier</a>
+            </div>
+        </div>
+    </div>
+    <hr>
+  <div class="col-md-10 text-center mx-auto">
+        <h3>Nos Best-seller</h3>
+        <p>Découvrez les articles les plus vendus.</p>
+        <div class="row justify-content-center">
+            {% for product in products %}
+                <div class="col-md-3">
+                    {% include 'incs/_single_product.html.twig' %}
+                </div>
+            {% endfor %}
+        </div><!-- /.row -->
+    </div>
+</div>  
+
+    <style>.container-show-top{ margin: 60px;}</style>
+{% endblock %}

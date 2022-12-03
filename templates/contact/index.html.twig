@@ -1,0 +1,132 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EZ-CBD - Contactez-nous
+{% endblock %}
+
+{% block body %}
+
+    <div class="container p-5 ">
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-8 text-center mb-4">
+					<h1 class="heading-section fwt-bolder"><img src="{{ asset('pics/marijuana.png') }}" alt="" width="40px" height="40px" class="img-responsive p-0"> EZ-CBD est a votre ecoute</h1>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-12">
+					<div class="wrapper">
+						<div class="row no-gutters">
+							<div class="col-lg-8 col-md-7 order-md-last d-flex align-items-stretch">
+								<div class="contact-wrap w-100 p-md-5 p-3">
+									<h3 class="mb-4">Contactez-nous</h3>
+									<div id="form-message-warning" class="mb-4"></div>
+									{{form_start(form)}}
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													{{form_row(form.last_name)}}
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													{{form_row(form.first_name)}}
+												</div>
+											</div>
+                                            <div class="col-md-12">
+												<div class="form-group">
+													{{form_row(form.email)}}
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<div class="form-group">
+													{{form_row(form.subject)}}
+												</div>			
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													{{form_row(form.content)}}
+												</div>				
+											</div>
+											<div class="col-md-12 my-4">
+												<div class="form-group">
+													<input type="submit" value="Envoyé votre message" class="btn btn-primary">
+													<div class="submitting"></div>
+												</div>
+											</div>
+										</div>
+                                        {{ form_end(form) }}
+									</form>
+								</div>
+                                
+							</div>
+							<div class="col-lg-4 col-md-5 d-flex align-items-stretch py-3">
+								<div class="info-wrap bg-primary w-100 p-md-5 p-4 text-light">
+									<h3 class="bg-light rounded h4">Venez nous retrouver</h3>
+									<p class="mb-4">Nous restons à votre écoute pour toutes suggéstions</p>
+									<div class="dbox w-100 d-flex align-items-start">
+										<div class="icon d-flex align-items-center justify-content-center">
+											<span class="fa fa-map-marker"></span>
+										</div>
+										<div class="text pl-3">
+											<p>
+												4 rue Monsieur le prince,
+                                               75006 PARIS
+												
+                                            </p>
+										</div>
+									</div>
+									<div class="dbox w-100 d-flex align-items-center ">
+										<div class="icon d-flex align-items-center justify-content-center">
+											<span class="fa fa-phone "></span>
+										</div>
+										<div class="text-whitesymfony pl-3">
+											<p>
+												<span>+33 6 36 55 00 00</span>
+											</p>
+										</div>
+									</div>
+									<div class="dbox w-100 d-flex align-items-center">
+										<div class="icon d-flex align-items-center justify-content-center">
+											<span class="fa fa-paper-plane"></span>
+										</div>
+										<div class="text-center pl-3">
+											<p>
+												<span>ezcbdshop@gmail.com</span>
+											</p>
+										</div>
+									</div>
+									<div class="dbox w-100 d-flex align-items-center">
+										<div class="icon d-flex align-items-center justify-content-center">
+											<span class="fa fa-globe"></span>
+										</div>
+										<div class="text pl-3">
+											<p>
+												<span>Website</span>
+												<a class="text-white nav-item" href="#">eZcbd.com</a>
+											</p>
+										</div>
+									</div>
+                                    <hr>
+                                    <div class="dbox w-100 d-flex align-items-center justify-content-center">
+										
+										<div class="">
+											<p>
+												<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2207.634344519377!2d2.3391344626343824!3d48.85183209964826!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e671dea8e980f1%3A0xfa75703f328dbe5d!2sAnne%20B%20Estate!5e0!3m2!1sfr!2sfr!4v1670100778221!5m2!1sfr!2sfr" width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+                          
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+    </div>
+
+{% endblock %}

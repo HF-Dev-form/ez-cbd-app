@@ -1,0 +1,95 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary bg-custom" id="nav">
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+    <!-- Navbar brand -->
+    <a class="navbar-brand" href="{{ path('app_main') }}">
+        <img src="{{ asset('pics/marijuana.png') }}" alt="" width="40px" height="40px" class="img-responsive hoverable">
+    </a>
+    <!-- Toggle button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <img src="{{ asset('pics/list.png') }}"  width="32px" height="32px" alt="" class="responsive">
+    </button>
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <!-- Link -->
+          <li class="nav-item">
+                  <a class="nav-link hoverable" href="{{ path('app_product') }}">Boutique</a>
+          </li>     
+                  {% include 'incs/_cat_nav.html.twig' %}
+            <li class="nav-item">
+                  <a class="nav-link hoverable" href="{{ path('app_contact') }}">Contact</a>
+          </li>      
+      </ul>
+    {# <nav class="navbar-nav ms-auto mx-2">
+        <form class="d-flex nav-item align-items-center justify-content-end" role="search">
+            <input class="form-control mx-auto py-2" type="search" placeholder="Rechercher un produit" aria-label="Search" style='max-width: 200px; height: 30px;'>
+            <button class="btn btn-sm btn-outline-success py-0" type="submit">Recherche</button>
+        </form>
+    </nav> #}
+<ul class="navbar-nav d-flex flex-row me-1">
+      <!-- Icons -->
+      <li class="nav-item">
+            {% if is_granted('ROLE_ADMIN') %}  
+			    <a href="{{ path('admin') }}" class="nav-item nav-link hoverable mt-2"><i class="fa fa-store"></i><small class="badge">Backoffice</small></a>
+            </li>    
+            {% endif %}   
+            {% if app.user %} 
+            <li class="nav-item me-5">
+			    <a href="{{ path('app_cart') }}" class="nav-item nav-link hoverable m-2"> 
+                    <i class="fa-solid fa-cart-shopping p-1">
+                        {% if cart_c.getTotal() > 0 %} {{ (cart_c.getTotal() / 100)|number_format(2, ',', '.') }}€ {% endif %} 
+                    </i>
+                    <small class="badge">Mon panier</small>
+                </a>
+            </li>   
+			<div class="nav-item dropdown ml-2">
+				<a href="#" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle m-1 p-0"><img src="{% if not app.user.avatar %} {{asset('pics/avatar.png')}} {% endif %}" class="img-fluid rounded-circle" alt="Avatar"> 
+                <small> {{ app.user.firstname}} {{ app.user.lastname}}</small> <b class="caret"></b></a>
+				<div class="dropdown-menu text-start">
+					<a href="{{ path('app_profile') }}" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
+					<a href="{{ path('app_cart') }}" class="dropdown-item"><i class="fa-solid fa-cart-shopping"></i> Mon panier</a>
+					<a href="{{ path('app_logout') }}" class="dropdown-item"><i class="fas fa-power-off"></i> Déconnexion </a>
+				</div>
+			</div>
+            {% else %}
+                <li class="nav-item">
+                    <a class=" py-1 nav-link hoverable" href="{{ path('app_login') }}">Connexion</a>
+                </li>
+                <li class="nav-item">  
+                    <a class="py-1 nav-link hoverable" href="{{ path('app_register') }}">Inscription</a>
+                </li>
+            {% endif %}   
+        </ul>
+
+    </div>
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
+{% block stylesheets %}
+<style>
+    .nav-link{
+        margin: 5px;
+        padding:0;
+        font-size: 0.85vw;
+    }
+
+     .nav-item{
+        margin: 0px;
+        padding:0;
+    }
+
+
+
+    @media (max-width: 768px) {
+        .nav-link {
+            font-size: 1.1rem;
+        }
+      
+    }
+</style>
+{% endblock %}
+

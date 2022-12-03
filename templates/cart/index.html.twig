@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EZ-CBD - Mon panier{% endblock %}
+
+{% block body %}
+
+<section class="container">
+  <div class="container h-100 py-5 p-5">
+    <div class="row d-flex justify-content-center align-items-center h-100 flex-fill">
+      <div class="col-12">
+        <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+          <div class="card-body p-1">
+            <div class="row g-0 justify-content-center">
+              <div class="col-md-7">
+                <div class="p-5">
+                  <div class="d-flex justify-content-between align-items-center mb-5">
+                    <h2 class="fw-bold mb-0 text-black">Mon panier</h2>
+                  </div>
+                  <hr class="my-3">         
+                {% if cart|length == 0 %}
+
+                    <h4 class="text-center text-dark my-3">Panier vide...</h4>
+                
+                {% else %}
+                    {% for products in cart %}  
+                        <div class="row mb-4 d-flex justify-content-between align-items-center flex-fill">
+                            <div class="col-md-2 col-lg-2 col-xl-2">
+                                <a href="{{ path('app_product_show', { "slug" : products.product.slug, "id" : products.product.id }) }}">
+                                <img
+                                    src="/uploads/{{products.product.illustration}}"
+                                    class="img-fluid rounded" alt="Cotton T-shirt">
+                                </a>   
+                            </div>
+                            <div class="row-cols-sm-1 col-md-3 col-lg-3 col-xl-3">
+                                <h6 class="text-muted">{{products.product.category}}</h6>
+                                <a href="{{ path('app_product_show', { "slug" : products.product.slug, "id" : products.product.id }) }}">
+                                <h6 class="text-black mb-0">{{products.product.name}}</h6>
+                                </a>
+                                <p class="m-0 p-0"><small>{{products.product.subtitle}}</small></p>
+                            </div>
+                            <div class="row-cols-sm-1 col-md-3 col-lg-3 col-xl-2 d-flex">
+                                <a href="{{ path('app_cart_decrement', {"id" : products.product.id} )}}" class="btn btn-link px-2"
+                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                    <i class="fas fa-minus"></i>
+                                </a>
+                                <a href="{{ path('app_cart_add', {"id" : products.product.id}) }}" class="btn btn-link px-2"
+                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                            </div>
+                            <div class="row-cols-sm-1 col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                <h6 class="mb-0">{{ (products.product.price / 100) | number_format(2, ',', '.')}}€</h6>
+                                <small class="mb-0">x{{ products.qty }} - {{ ( (products.product.price * products.qty) / 100) | number_format(2, ',', '.')}}  €</small>
+
+                                </div>
+                                <div class="row-cols-sm-1 row-cols-md-1 col-lg-1 col-xl-1 text-end">
+                                <a href="{{ path('app_cart_remove_item', { 'id' : products.product.id }) }}" class="text-muted"><i class="fa-regular fa-trash-can"></i></a>
+                            </div>
+                        </div>
+                    <hr class="my-4">
+                    {% endfor %}
+                {% endif %}  
+                  <div class="pt-4">
+                    <h6 class="mb-0"><a href="{{ path('app_product') }}" class="text-body"><i
+                          class="fas fa-long-arrow-alt-left me-2"></i>Revenir sur la boutique</a></h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 bg-grey my-2 shadow-sm">
+                <div class="p-5">
+                  {% if total > 0 %}
+                  {# <div class="d-flex flex-column mb-4">
+                    <h6><small class="text-muted"> Nombre de produit(s) dans mon panier: </small></h6>
+                    <h5 class="text-uppercase"></h5>
+                  </div>
+
+                  <hr class="my-4"> #}
+                 
+                  <div class="d-flex flex-column">
+                    <h5 class="text-uppercase">Prix total: </h5>
+                    <h6>{{(total / 100)| number_format(2, ',', '.')}}€</h6>
+                  </div>
+
+                  <a href="{{ path('app_orders') }}" class="btn btn-success btn-block shadow-lg my-3">Procéder au paiment</a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% block stylesheets %} <link href="assets/css/cart.css" rel="stylesheet"> {% endblock %} 
+
+
+
+{% endblock %}
+
+
+    

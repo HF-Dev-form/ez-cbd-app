@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RegisterController!{% endblock %}
+
+{% block body %}
+
+          <div class="container mx-auto px-5"> 
+            <h1 class="h-3 text-center">Inscription</h1>
+		{{ form_start(form, {'attr' : {'class' : 'col-md-7 bg-light rounded shadow-sm mx-auto p-2'}})}}
+            {{ form_row(form.lastname)}}
+            {{ form_row(form.firstname)}}
+            {{ form_row(form.email)}}
+            {{ form_row(form.password)}}
+		{{ form_end(form)}}
+          </div>   
+
+{% endblock %}

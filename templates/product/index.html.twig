@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ez-CBD - Nos products{% endblock %}
+
+{% block body %}
+	{# <div class="row my-5 justify-content-center align-items-between">
+		<div class="col-md-2 mt-5 rounded shadow-sm border-bottom-2 flex-fill" style="">
+			<h3 class="my-3 h-5">Recherche filtrée</h3>
+			{{ form_start(form) }}
+				{{ form_row(form.string) }}
+				{{ form_row(form.categories) }}
+				<button class="btn btn-block btn-sm btn-primary">Rechercher</button>
+			{{ form_end(form) }}
+		</div>
+		<div class="album py-5 bg-light border-0 col-md-10">
+		<h3 class="text-center my-3">Tous nos produits <small>({{ products.getTotalItemCount }})</small></h3>
+			<div class="container">
+			<div class="row">
+			{% for product in products  %}
+				<div class="col-md-3 p-0 m-1 hoverable">
+				<div class="card mb-4 border-0">
+				<h5 class="title text-center p-1">
+					<a href=" {{ path('app_product_show', {'slug' : product.slug, 'id' : product.id}) }}">{{product.name}} </a> 
+					</h5>
+					<a href=" {{ path('app_product_show', {'slug' : product.slug, 'id' : product.id}) }}">
+						<img src="{{ asset('uploads/') }}{{product.illustration}}" class="card-img-top img-fluid pt-2 rounded" style="width:300px; max-height: 180px !important; object-fit:cover"> 
+					</a>
+					<div class="card-body">
+					<p class="card-text text-center fwt-bold">
+						<small>{{product.subtitle}}</small>
+					</p>
+					<p class="text-center">{{ (product.price / 100)|number_format(2, ',', '.')}}€</p>
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="btn-group">
+						<a href="{{ path('app_product_show', {'slug' : product.slug, 'id' : product.id}) }}" class="btn btn-sm btn-primary ">Voir détails</a>
+							<a href="{{ path('app_cart_add', {"id" : product.id}) }}" class="btn btn-sm btn-success"><i class="fa-solid fa-cart-shopping"></i></a>
+						</div>
+						<small class="text-muted font-italic p-0 m-0">{{product.category.name}}</small> 
+					</div>
+					</div>
+				</div>
+				</div>
+				{% endfor %}
+			</div>   
+			</div>
+			<div class="pagination text-center">
+				{{ knp_pagination_render(products)}}
+			</div>
+			
+		</div>
+	</div>	 #}
+	<div class="container bg-white">
+		<nav class="navbar navbar-expand-md navbar-light bg-white">
+			<div class="container-fluid p-0"> <a class="navbar-brand text-uppercase fw-800" href="#"><span class="border-red pe-2">Nos</span>Produits({{products.getTotalItemCount}})</a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNav" aria-controls="myNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="fas fa-bars"></span> </button>
+				<div class="collapse navbar-collapse" id="myNav">
+					<div class="navbar-nav ms-auto"> 
+					<a class="nav-link active" aria-current="page" href="{{path('app_product')}}">Toutes les catégories</a> 
+					{% for cat in categories_p.findAll() %}
+					<a class="nav-link" href="{{ path('app_category', {'id' : cat.id}) }}">{{ cat.name }}</a> 
+					{% endfor %}
+				</div>
+			</div>
+		</nav>
+		<div class="row">
+		{% for product in products  %}
+			<div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3 hoverable">
+				<div class="product"><a href="{{ path('app_product_show', {'slug' : product.slug, 'id' : product.id}) }}"> <img src="{{ asset('uploads/') }}{{product.illustration}}"></a>
+					<ul class="d-flex align-items-center justify-content-center list-unstyled icons">
+						<li class="icon"><a href="{{ path('app_product_show', {'slug' : product.slug, 'id' : product.id}) }}"><span class="fas fa-expand-arrows-alt"></span> </a></li>
+						<li class="icon"><a href="{{ path('app_product_show', {'slug' : product.slug, 'id' : product.id}) }}"><span class="fas fa-shopping-bag"></span></a></li>
+					</ul>
+				</div>
+				<div class="tag bg-red"><small>{{product.subtitle|slice(0, 25)}}...</small></div>
+				<div class="title pt-4 pb-1"><a href=" {{ path('app_product_show', {'slug' : product.slug, 'id' : product.id}) }}">{{product.name}} </a> </div>
+				<div class="d-flex align-content-center justify-content-center"> {% for i in 1.. random(5) %} <span class="fas fa-star"></span>  {% endfor %}</div>
+				<div class="price">{{ (product.price / 100)|number_format(2, ',', '.')}}€</div>
+			</div>
+		{% endfor %}
+		</div>
+    </div>
+	<div class="pagination text-center">
+	{{ knp_pagination_render(products)}}
+	</div>
+</div>
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/main-product.css') }}">
+{% endblock %}
+
+{% endblock %}

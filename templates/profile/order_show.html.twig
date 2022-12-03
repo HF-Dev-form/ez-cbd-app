@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CBD Shop - Ma commande {{order.reference|upper}} {% endblock %}
+
+{% block body %}
+
+<section class="vh-80 container mx-auto" style="">
+    <h3 class="text-center">Ma commande</h3>
+        <hr>
+     
+        <div class="row mx-auto text-center justify-content-center">
+
+            <div class="card rounded shadow-sm col-md-7 m-1" style="width: 38rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{order.reference|upper}}</h5>
+                        <p class="card-text">
+                            Commande passé le: {{ order.createdAt|date("m/d/Y")}}  
+                        </p>
+                        <hr>
+                        <p class="card-text">
+                          Produit(s) commandé(s) : {{order.orderDetails|length}} <br>
+                        </p>
+                         <div class="row">
+                         <h4>Details</h4>
+                         <hr>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="">
+                                        <tr>
+                                            <th scope="col">Produit</th>
+                                            <th scope="col">Quantité</th>
+                                            <th scope="col">Prix unitaire</th>
+                                            <th scope="col">Total</th>
+                                            <th scope="col">Statut</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for product in order.orderDetails %}
+                                      <tr>  
+                                       <td>{{product.product}}</td>
+                                       <td>x{{product.quantity}}</td>
+                                       <td>{{(product.priceProduct / 100)|number_format( 2, ',', ' ') }}€</td>
+                                       <td>{{(product.total / 100)|number_format( 2, ',', ' ') }}€</td>
+                                       <td>
+                                        {% if order.state == 1 %}
+                                            <small class="badge bg-warning">Commande validée</small>  
+                                        {% elseif order.state == 2 %}
+                                            <small class="badge bg-warning">Commande en cour de préparation</small>  
+                                        {% elseif order.state == 3 %}
+                                            <small class="badge bg-warning">Commande en cour de livraison </small>  
+                                        {% elseif order.state == 4 %}
+                                            <small class="badge bg-success">Commande livrée </small>  
+                                        {% else %}
+                                            <small class="badge bg-primary">Commande en cour de vérification </small>  
+                                        {% endif %}
+                                       </td>
+                                     </tr>  
+                                    {% endfor %}    
+                                    </tbody>
+                                </table>
+                            </div>   
+                         </div>
+                         <div class="text-right">
+                            <strong>Sous-total:</td></strong> {{(order.getTotal() / 100)|number_format( 2, ',', ' ') }}€ <br>
+                            <strong>Livraison: </strong>{{(order.carrierPrice() / 100)|number_format( 2, ',', ' ') }}€
+                            <hr>
+                            <strong>Total:</strong> <h5><span class="badge alert-dark p-2 my-1">{{ ((order.getTotal() + order.carrierPrice) / 100)|number_format(2, ',', ' ') }}€</span></h5>
+                         </div>
+                        <div class="row justify-content-between px-2">
+                            <a href="{{ path('app_profile_order') }}" class="">Revenir sur mes commandes</a>
+                            {# <a href="{{ path('app_profile_address_remove', { 'id' : order.id}) }}" class="text-danger">Supprimer</a>  #}
+                        </div>
+                    </div>
+            </div>
+
+        </div>
+      
+    <a class="text-dark font-weight-bolder" href="{{ path("app_profile") }}">Revenir sur mon profile</a>
+
+</section>
+
+
+{% endblock %}

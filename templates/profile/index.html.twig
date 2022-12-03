@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfileController!{% endblock %}
+
+{% block body %}
+
+<div class="container mt-3">
+  <h1>Mon compte</h1>
+    {% if is_granted('ROLE_ADMIN') %}
+        <small><a href="/admin">Vous êtes un administrateur, accéder au backoffice ?</a></small><br/>
+    {% endif %}
+    <p class="my-2"> 
+      Bienvenue dans votre compte {{ app.user.firstname }} <span> <img width="32px" height="32px" class="img-fluid rounded-circle" src="{% if not app.user.avatar %} {{ asset('pics/avatar.png') }} {% endif %}" alt=""> </span>. <br/>
+      C'est dans cet espace que vous allez pouvoir gérer toutes vos informations personnelles.
+    </p>
+    <hr>
+    <div class="row bg-primary text-white p-5 text-center">
+        <div class="col-md-4">
+            <div class="account-item text-center bg-primary text-white h-1">
+               <i class="fa-solid fa-lock fa-3x"></i><br/>
+                <a class="text-white" href="{{ path('app_profile_password') }}">Modifier mon mot de passe</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="account-item text-center">
+                <i class="fa-solid fa-address-book fa-3x"></i><br/>
+                <a class="text-white" href="{{ path('app_profile_address') }}">Gérer mes adresses</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="account-item text-center">
+                <i class="fa-solid fa-boxes-packing fa-3x"></i><br/>
+                <a class="text-white" href="{{ path('app_profile_order') }}">Mes commandes</a>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>
+
+
+{% endblock %}

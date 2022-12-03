@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CBD Shop - Mes commandes{% endblock %}
+
+{% block body %}
+
+<section class="vh-80 container mx-auto" style="">
+    <h3 class="text-center">Mes commandes</h3>
+        <hr>
+        {% if orders|length == 0 %}
+            <p>Vous n'avez pas de commande, pour commander des produits<b><a href="{{ path('app_profile_address_add') }}" class="text-dark font-italic" href="{{ path('app_product') }}">cliquer ici</a></b></p>
+        {% endif %}
+
+        <div class="row mx-auto text-center my-5">
+        {% for order in orders %}
+            <div class="card rounded shadow-sm col-md-3 m-1" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{order.reference|upper}}</h5>
+                        <p class="card-text">
+                            Commande passé le: {{ order.createdAt|date("m/d/Y")}}  
+                        </p>
+                        <hr>
+                        <p class="card-text">
+                          Produit(s) commandé(s) : {{order.orderDetails|length}} <br>
+                          <strong>Total: {{ ((order.getTotal() + order.carrierPrice) / 100)|number_format(2, ',', ' ') }}€ </strong>
+                          <hr>
+                          {% if order.state == 1 %}
+                            <span class="badge bg-warning">Commande validée</span>  
+                          {% elseif order.state == 2 %}
+                            <span class="badge bg-warning">Commande en cour de préparation</span>  
+                          {% elseif order.state == 3 %}
+                            <span class="badge bg-warning">Commande en cour de livraison </span>  
+                          {% elseif order.state == 4 %}
+                            <span class="badge bg-success">Commande livrée </span>  
+                          {% else %}
+                            <span class="badge bg-primary">Commande en cour de vérification </span>  
+                          {% endif %}
+                        </p>
+                        <div class="row justify-content-between px-2">
+                            <a href="{{ path('app_profile_order_show', { 'reference' : order.reference}) }}" class="">Voir le détail ma commande</a>
+                            {# <a href="{{ path('app_profile_address_remove', { 'id' : order.id}) }}" class="text-danger">Supprimer</a>  #}
+                        </div>
+                    </div>
+            </div>
+        {% endfor %}   
+        </div>
+        <div class="">
+            <a href="{{ path('app_profile_address_add') }}" class="text-dark font-weight-bolder"><b>+</b> Ajouter une adresse</a>
+        </div>
+    <a class="text-dark font-weight-bolder" href="{{ path("app_profile") }}">Revenir sur mon profile</a>
+
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EZ-CBD - Demande de réinitialisation mot de passe{% endblock %}
+
+{% block body %}
+
+<div class="container mx-auto col-md-5">
+    <h1 class="h3 my-3 font-weight-normal text-center">Réinitialisation du mot de passe</h1>
+    <p class="text-center bg-warning text-dark fwt-bold p-3">
+        Veuilez saisir votre nouveau mot de passe et merci de le confirmer.
+    </p>
+    {{form(form)}}
+</div>
+{% endblock %}
+
+
