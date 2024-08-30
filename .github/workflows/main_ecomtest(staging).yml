@@ -68,11 +68,6 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_C747424817A540CBA3559B48C76766AB }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_93594FC556CF45E89CC3A958D9CCC030 }}
 
-      - name: Clean wwwroot directory
-        run: | 
-             az webapp config appsettings set --name ${{ secrets.AZURE_APP_NAME }} --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --settings CLEAN_WWWROOT=true
-    
-
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
