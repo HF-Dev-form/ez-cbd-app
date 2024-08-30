@@ -39,6 +39,9 @@ jobs:
         with:
           name: php-app
           path: release.zip
+          
+      - name: Pause before deployment
+        run: sleep 30s   
 
   deploy:
     runs-on: ubuntu-latest
