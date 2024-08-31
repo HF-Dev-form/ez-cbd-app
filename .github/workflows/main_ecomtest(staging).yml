@@ -21,12 +21,6 @@ jobs:
         with:
           php-version: "8.2"
 
-      - name: Test MySQL Connectivity
-        run: |
-          dig ecomtest-server.mysql.database.azure.com @8.8.8.8
-          mysql -h ecomtest-server.mysql.database.azure.com -u ${AZURE_MYSQL_USERNAME} -p${AZURE_MYSQL_PASSWORD} -e "SHOW DATABASES;"
-          mysql -h ecomtest-server.mysql.database.azure.com -u ${AZURE_MYSQL_USERNAME} -p${AZURE_MYSQL_PASSWORD} -e "SELECT * FROM information_schema.tables WHERE table_schema = 'ecomtest';"
-
       - name: Check if composer.json exists
         id: check_files
         uses: andstor/file-existence-action@v1
@@ -38,7 +32,7 @@ jobs:
         run: |
           composer validate --no-check-publish
           composer update --no-progress
-          composer install --prefer-dist --no-progress
+          composer install --no-progress
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r .env
