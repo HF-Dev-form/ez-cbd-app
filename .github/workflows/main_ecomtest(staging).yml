@@ -21,14 +21,6 @@ jobs:
         with:
           php-version: "8.2"
 
-      - name: Set up .env file
-        run: |
-          echo "APP_ENV=prod" > .env
-          echo "APP_SECRET=${{ secrets.APP_SECRET }}" >> .env
-          echo "MESSENGER_TRANSPORT_DSN=${{ secrets.MESSENGER_TRANSPORT_DSN }}" >> .env
-          echo "SK_STRIPE=${{ secrets.SK_STRIPE }}" >> .env
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
-
       - name: Check if composer.json exists
         id: check_files
         uses: andstor/file-existence-action@v1
