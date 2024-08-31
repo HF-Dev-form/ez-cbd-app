@@ -23,7 +23,7 @@ jobs:
 
       - name: Test MySQL Connectivity
         run: |
-          nslookup ecomtest-server.mysql.database.azure.com
+          dig ecomtest-server.mysql.database.azure.com @8.8.8.8
           mysql -h ecomtest-server.mysql.database.azure.com -u ${AZURE_MYSQL_USERNAME} -p${AZURE_MYSQL_PASSWORD} -e "SHOW DATABASES;"
           mysql -h ecomtest-server.mysql.database.azure.com -u ${AZURE_MYSQL_USERNAME} -p${AZURE_MYSQL_PASSWORD} -e "SELECT * FROM information_schema.tables WHERE table_schema = 'ecomtest';"
 
