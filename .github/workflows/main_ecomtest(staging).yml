@@ -79,6 +79,15 @@ jobs:
           slot-name: "staging"
           package: .
 
+      - name: test pwd
+        run: pwd
+
+      - name: Ensure the /home/site directory exists
+        run: |
+          if [ ! -d "/home/site" ]; then
+            mkdir -p /home/site
+          fi
+
       - name: Create default Nginx config file
         run: |
           echo "server {
@@ -107,15 +116,6 @@ jobs:
                   deny all;
               }
           }" > /home/site/default
-
-      - name: test pwd
-        run: pwd
-
-      - name: Ensure the /home/site directory exists
-        run: |
-          if [ ! -d "/home/site" ]; then
-            mkdir -p /home/site
-          fi
 
       - name: Copy Nginx config to sites-available and sites-enabled
         run: |

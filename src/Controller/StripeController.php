@@ -12,16 +12,26 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class StripeController extends AbstractController
 {
+
+   protected $requestStack;
+
+    public function __construct(RequestStack $requestStack)
+    {
+        $this->requestStack = $requestStack;
+    }
+
     /**
      * @Route("/commande/create-session/{ref}", name="app_stripe_create_session")
      */
     public function index($ref, Cart $cart, EntityManagerInterface $em): Response
     {
         $products_stripe = [];
-        $YOUR_DOMAIN = 'http://localhost:8000';
+        $request = $this->requestStack->getCurrentRequest();
+        $DOMAIN =  $request->getSchemeAndHttpHost();;
 
         $order = $em->getRepository(Order::class)->findByReference($ref);
 
@@ -43,7 +53,7 @@ class StripeController extends AbstractController
                             'unit_amount' => $products->product->getPrice(),
                             'product_data' => [
                                 'name' => $products->product->getName(), 
-                                'images' => [$YOUR_DOMAIN."/uploads/".$products->product->getIllustration()],  
+                                'images' => [$DOMAIN."/uploads/".$products->product->getIllustration()],  
                             ]
                         ]                  
             ];     
@@ -56,7 +66,7 @@ class StripeController extends AbstractController
                             'unit_amount' => $order[0]->getCarrierPrice(),
                             'product_data' => [
                                 'name' => $order[0]->getCarrierName(), 
-                                'images' => [$YOUR_DOMAIN],  
+                                'images' => [$DOMAIN],  
                             ]
                         ]                  
             ];   
@@ -70,8 +80,8 @@ class StripeController extends AbstractController
                 'payment_method_types' => ['card'],
                 'line_items' => [$products_stripe],
                 'mode' => 'payment',
-                'success_url' => $YOUR_DOMAIN . '/commande/succes/{CHECKOUT_SESSION_ID}',
-                'cancel_url' => $YOUR_DOMAIN . '/commande/erreur/{CHECKOUT_SESSION_ID}',
+                'success_url' => $DOMAIN . '/commande/succes/{CHECKOUT_SESSION_ID}',
+                'cancel_url' => $DOMAIN . '/commande/erreur/{CHECKOUT_SESSION_ID}',
             ]);
                 
             $order[0]->setStripeSession($checkout_session->id);
