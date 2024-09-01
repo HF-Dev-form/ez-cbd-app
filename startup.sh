@@ -35,8 +35,10 @@ EOL
     pkill -o -USR2 php-fpm
     service nginx reload
 
-    echo "Running Doctrine migrations..."
+   
     cd /home/site/wwwroot
+    echo "Clearing symfony cache..."
     php bin/console cache:clear --env=prod
+    echo "Running Doctrine migrations..."
     php bin/console doctrine:migrations:migrate --no-interaction
 
